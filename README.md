@@ -42,7 +42,7 @@ IMPORTANT: if you rename the directories, you will need to change the entries in
 
 When neither of the above options is provided, Qake forwards the options provided to `make`. Thus usage such as `qake build` or `qake clean` is equivalent to running `make` with those subcommands, using the generated Makefile. You can also provide options such as `--always-make`.
 
-`example` is provided where you can test these commands.
+The directory `example` is provided where you can test these commands.
 
 Qake Makefiles contain phony targets `build` and `clean`. The generated Makefile’s default target is `build`, so just `qake` is the same as `qake build`.
 
