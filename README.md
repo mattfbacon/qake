@@ -6,7 +6,7 @@ It provides a simple way to generate a project and its Makefile. It does not pro
 
 Licensed under the GPL v3.0.
 
-This is my project in C++ so don’t judge too harshly :)
+This is my first project in C++ so don’t judge too harshly :)
 
 ## Building
 
