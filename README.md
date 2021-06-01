@@ -59,15 +59,15 @@ Qake Makefiles contain phony targets `build` and `clean`. The generated Makefile
 - `T[]` = list of `T`
 - `T{}` = table of with key of string and value of `T`.
 
-### `_config_version` number*
+### `_config_version`: number*
 
 This is used internally to provide backwards compatibility.
 
-### `project.target` string*
+### `project.target`: string*
 
 Required. The name of the binary in the dist folder.
 
-### `project.type` string
+### `project.type`: string
 
 Can be `executable`, `shared`, or `static`. The default is `executable`.
 
