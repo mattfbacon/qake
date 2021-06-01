@@ -1,0 +1,91 @@
+## This is your Qake configuration file. Two hashtags indicates a description
+## comment that describes the following configuration entry(s). One hashtag
+## indicates the default(s).
+
+## do not change
+_config_version = 0
+
+
+[project]
+## required. name of binary in dist folder.
+# target = "myproject"
+
+## can be `executable`, `shared`, or `static`.
+# type = "executable"
+
+## can be `c` or `c++`.
+# language = "c"
+
+
+[build]
+## added verbatim to the end of the binary. default depends on project type:
+## shared library: `.so`
+## static library: `.a`
+## executable: ``
+# binary_suffix = ""
+
+## compiler binary name. default depends on project language:
+## c: `gcc`
+## c++ `g++`
+# cc = "g++"
+
+## required to avoid ambiguity. C/C++ standard version.
+# standard = "gnu++17"
+
+## adds -O2 flag
+# optimize = true
+
+## whether to tell GCC to make .d files for file dependencies.
+# use_dependencies = true
+
+## whether to make position-independent code. flags added based on project type:
+## shared/static library: -fPIC / -fno-PIC
+## executable: -fPIE -pie / -fno-PIE -no-pie
+# pic = true
+
+## flags to pass verbatim to the compiler
+# _flags = []
+
+[build.warnings]
+## each entry either enables or disables a compiler warning.
+# all = true
+# extra = true
+# error = false
+
+[build.features]
+## each entry either enables or disables a compiler feature.
+
+
+[dependencies]
+## libraries to link with (-l flag)
+# libraries = []
+
+## packages to include via `pkg-config`.
+# packages = []
+
+## system directories for system include files (-isystem flag)
+## differs from the project's system include directory in that these are pre-
+## existing directories from the system (e.g., `/usr/include/foobar`), whereas
+## the project's system include directory refers to a place for actual header
+## files provided by the project (as opposed to the system).
+# include_dirs = []
+
+
+[directories]
+## internal use. unlinked object files use to speed up recompiles.
+# objects = "obj"
+
+## source files directory
+# source = "src"
+
+## directory for header files accessed with quotes
+# include = "include"
+
+## directory for header files accessed with angle brackets
+# system_include = "sysinc"
+
+## directory for final product (executable/library)
+# dist = "dist"
+
+## internal use. dependency files for Make.
+# dependencies = "deps"

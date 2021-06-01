@@ -1,0 +1,35 @@
+_config_version = 0
+
+[project]
+target = "qake"
+type = "executable"
+language = "c++"
+
+[build]
+binary_suffix = ""
+cc = "g++"
+standard = "gnu++17"
+optimization = true
+use_dependencies = true
+pic = true
+werror = true
+_flags = []
+
+[build.warnings]
+all = true
+extra = true
+
+[build.features]
+
+[dependencies]
+libraries = ["stdc++fs"]
+packages = []
+include_dirs = []
+
+[directories]
+objects = "obj"
+source = "src"
+include = "include"
+system_include = "sysinc"
+dist = "dist"
+dependencies = "deps"

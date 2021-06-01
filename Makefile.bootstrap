@@ -1,0 +1,42 @@
+TARGET := qake
+
+ODIR := obj
+SDIR := src
+IDIR := include
+SYSINCDIR := sysinc
+OUTDIR := dist
+DEPDIR := deps
+
+LIBS := stdc++fs
+CC := g++
+PKGS :=
+CFLAGS := -O2 -fPIE -pie -std=gnu++17 -Wall -Wextra -Wformat -iquote$(IDIR) -isystem$(SYSINCDIR) $(foreach lib,$(LIBS),-l$(lib)) $(shell [ -n "$(PKGS)" ] && pkg-config --cflags --libs $(PKGS) | sed s/-I/-isystem/g)
+
+SOURCE_FILES := $(shell find $(SDIR)/ -type f)
+OBJECT_FILES := $(patsubst $(SDIR)/%, $(ODIR)/%.o, $(SOURCE_FILES))
+DEPFILES := $(patsubst $(SDIR)/%, $(DEPDIR)/%.d, $(SOURCE_FILES))
+
+$(DEPFILES):
+
+-include $(wildcard $(DEPFILES))
+
+$(ODIR)/%.o: $(SDIR)/% $(DEPDIR)/%.d
+	mkdir -p $(dir $(patsubst $(SDIR)/%, $(DEPDIR)/%.d, $<))
+	mkdir -p $(dir $(patsubst $(SDIR)/%, $(ODIR)/%.o, $<))
+	$(CC) $< -c -o $@ $(CFLAGS) -MD -MT $@ -MP -MF $(patsubst $(SDIR)/%, $(DEPDIR)/%.d, $<)
+
+$(OUTDIR):
+	mkdir -p $@
+
+.PHONY: build
+build: $(OUTDIR)/$(TARGET) | $(OUTDIR)
+
+$(OUTDIR)/$(TARGET): $(OBJECT_FILES) | $(OUTDIR)
+	$(CC) $^ $(CFLAGS) -o $@
+
+.PHONY: clean
+clean:
+	@rm -rf $(ODIR)
+	@rm -rf $(DEPDIR)
+
+.DEFAULT_GOAL := build

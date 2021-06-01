@@ -1,0 +1,9 @@
+_config_version = 0
+
+[build]
+standard = 'gnu++17'
+
+[project]
+language = 'c++'
+target = 'myproj'
+type = 'executable'

@@ -1,0 +1,37 @@
+CFLAGS := \
+	$(shell [ -n "$(PKGS)" ] && pkg-config --cflags --libs $(PKGS) | sed s/-I/-isystem/g) \
+	$(foreach lib,$(LIBS),-l$(lib)) \
+	$(CFLAGS_optimize) $(CFLAGS_pic) \
+	$(CFLAGS_standard) $(CFLAGS_warnings) \
+	$(CFLAGS_features) $(CFLAGS_project_type) \
+	-iquote$(DIR_include) -isystem$(DIR_system_include) \
+	$(foreach incdir,$(INCDIRS),-isystem$(incdir))
+
+SOURCE_FILES := $(shell find $(DIR_source)/ -type f)
+OBJECT_FILES := $(patsubst $(DIR_source)/%, $(DIR_objects)/%.o, $(SOURCE_FILES))
+DEPFILES := $(patsubst $(DIR_source)/%, $(DIR_dependencies)/%.d, $(SOURCE_FILES))
+
+$(DEPFILES):
+
+-include $(wildcard $(DEPFILES))
+
+$(DIR_objects)/%.o: $(DIR_source)/% $(DIR_dependencies)/%.d
+	mkdir -p $(dir $(patsubst $(DIR_source)/%, $(DIR_dependencies)/%.d, $<))
+	mkdir -p $(dir $(patsubst $(DIR_source)/%, $(DIR_objects)/%.o, $<))
+	$(CC) $< -c -o $@ $(CFLAGS) -MD -MT $@ -MP -MF $(patsubst $(DIR_source)/%, $(DIR_dependencies)/%.d, $<)
+
+$(DIR_dist):
+	mkdir -p $@
+
+.PHONY: build
+build: $(DIR_dist)/$(TARGET)$(bin_suffix) | $(DIR_dist)
+
+$(DIR_dist)/$(TARGET)$(bin_suffix): $(OBJECT_FILES) | $(DIR_dist)
+	$(CC) $^ $(CFLAGS) -o $@
+
+.PHONY: clean
+clean:
+	@rm -rf $(DIR_objects)
+	@rm -rf $(DIR_dependencies)
+
+.DEFAULT_GOAL := build
