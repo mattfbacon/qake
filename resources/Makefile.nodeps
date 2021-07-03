@@ -28,6 +28,6 @@ $(DIR_dist)/$(TARGET)$(bin_suffix): $(OBJECT_FILES) | $(DIR_dist)
 
 .PHONY: clean
 clean:
-	@rm -rf $(DIR_objects)
+	rm -rf $(DIR_objects)
 
 .DEFAULT_GOAL := build
