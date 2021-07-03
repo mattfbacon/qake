@@ -4,6 +4,7 @@ CFLAGS := \
 	$(CFLAGS_optimize) $(CFLAGS_pic) \
 	$(CFLAGS_standard) $(CFLAGS_warnings) \
 	$(CFLAGS_features) $(CFLAGS_project_type) \
+	$(CFLAGS_user) \
 	-iquote$(DIR_include) -isystem$(DIR_system_include) \
 	$(foreach incdir,$(INCDIRS),-isystem$(incdir))
 
